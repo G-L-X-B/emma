@@ -1,4 +1,4 @@
-def check_word(string: str):
+def check_isword(string: str):
     """Check if input string is a word as a whole.
 
     If input is not of type `str`, raises `TypeError`.
