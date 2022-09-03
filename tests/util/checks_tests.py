@@ -27,3 +27,20 @@ class CheckWordTest(unittest.TestCase):
             check_word(' a')
             check_word('a ')
             check_word('a b')
+
+
+class CheckIsIdentifierTest(unittest.TestCase):
+    def test_correct_input(self):
+        self.assertIsNone(check_isidentifier('af12_'), 'Should be a valid identifier.')
+        self.assertIsNone(check_isidentifier('_'), 'Should be a valid identifier.')
+        self.assertIsNone(check_isidentifier('__'), 'Should be a valid identifier.')
+
+    def test_not_str_input(self):
+        with self.assertRaises(TypeError, msg='Given wrong type must raise TypeError.'):
+            check_isidentifier(object)
+
+    def test_special_characters(self):
+        with self.assertRaises(ValueError, msg='Given string containing special characters must raise ValueError.'):
+            check_isidentifier(' ')
+            check_isidentifier('.,')
+            check_isidentifier('%')
