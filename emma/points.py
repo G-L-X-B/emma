@@ -28,7 +28,7 @@ class Point:
         if name == 'dimensions':
             return len(axes)
         elif name == 'axes':
-            return {axes.keys()}
+            return {*axes.keys()}
         elif name in axes.keys():
             return axes[name]
         else:
