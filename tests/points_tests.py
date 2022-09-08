@@ -31,10 +31,10 @@ class PointTests(unittest.TestCase):
 
     def test_reserved_attributes_access(self):
         self.assertEqual(self.point.dimensions, 2)
-        self.assertEqual(self.point.axes, {'x', 'y'})
+        self.assertEqual(self.point.axes, ['x', 'y'])
 
     def test_reserved_attributes_assignment(self):
         with self.assertRaises(AttributeError, msg='When trying to assign to reserved attributes should raise AttributeError.'):
             self.point.dimensions = 3
         with self.assertRaises(AttributeError, msg='When trying to assign to reserved attributes should raise AttributeError.'):
-            self.point.axes = {'x', 'y', 'z'}
+            self.point.axes = ['x', 'y', 'z']

@@ -4,7 +4,7 @@ from emma.util.checks import check_isidentifier
 class Point:
     """A point in a space of arbitrary dimensions.
 
-    Point(mapping) -> new `Point` that uses mapping to initialize its
+    Point(mapping) -> a new `Point` that uses mapping to initialize its
     axes and values. Axes names must be valid python identifiers.
     Note that names 'axes' and 'dimensions' are reserved. Values must
     be `float`-convertible.
@@ -28,7 +28,7 @@ class Point:
         if name == 'dimensions':
             return len(axes)
         elif name == 'axes':
-            return {*axes.keys()}
+            return sorted(axes.keys())
         elif name in axes.keys():
             return axes[name]
         else:
