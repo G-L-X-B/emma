@@ -49,3 +49,16 @@ class PointAttributesAccessTests(unittest.TestCase):
             self.point.dimensions = 3
         with self.assertRaises(AttributeError, msg='When trying to assign to reserved attributes should raise AttributeError.'):
             self.point.axes = ['x', 'y', 'z']
+
+
+class PointIsSameSpaceTests(unittest.TestCase):
+    def setUp(self):
+        self.point = Point(x = 1, y = 2, z = 3)
+
+    def test_with_same(self):
+        same = Point(self.point)
+        self.assertTrue(same.is_same_space(self.point))
+
+    def test_with_different(self):
+        diff = Point(self.point, t = 3)
+        self.assertFalse(diff.is_same_space(self.point))

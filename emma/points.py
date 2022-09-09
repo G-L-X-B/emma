@@ -53,3 +53,6 @@ class Point:
             axes[name] = float(value)
         except (AttributeError, KeyError):
             super().__setattr__(name, value)
+
+    def is_same_space(self, other) -> bool:
+        return self.axes == other.axes
