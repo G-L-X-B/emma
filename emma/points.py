@@ -17,10 +17,10 @@ class Point:
             check_isidentifier(axis)
             if axis in dir(self) or axis == 'dimensions' or axis == 'axes':
                 raise ValueError(f"Can't name an axis '{axis}'.")
-            super().__getattribute__('_Point__axes')[axis] = float(value)
+            self.__axes[axis] = float(value)
 
     def __repr__(self):
-        axes = super().__getattribute__('_Point__axes')
+        axes = self.__axes
         return f"Point({', '.join('{}={}'.format(*x) for x in axes.items())})"
 
     def __getattribute__(self, name: str):
@@ -40,7 +40,7 @@ class Point:
         elif name == 'axes':
             raise AttributeError("'axes' member is not accessible.")
         try:
-            axes = super().__getattribute__('_Point__axes')
+            axes = self.__axes
             if name not in self.axes:
                 raise AttributeError()
             axes[name] = float(value)
