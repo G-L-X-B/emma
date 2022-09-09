@@ -32,7 +32,7 @@ class PointCreationTests(unittest.TestCase):
 
 
 class PointAttributesAccessTests(unittest.TestCase):
-    def setUp(self) -> None:
+    def setUp(self):
         self.point = Point(x = 1, y = 2)
         return super().setUp()
 
@@ -49,6 +49,31 @@ class PointAttributesAccessTests(unittest.TestCase):
             self.point.dimensions = 3
         with self.assertRaises(AttributeError, msg='When trying to assign to reserved attributes should raise AttributeError.'):
             self.point.axes = ['x', 'y', 'z']
+
+
+class PointEqualityTests(unittest.TestCase):
+    def setUp(self):
+        self.point = Point(y = 1, o = 2, x = 3)
+
+    def test_with_copy(self):
+        c = Point(self.point)
+        self.assertEqual(self.point, c)
+
+    def test_with_empty_point(self):
+        diff = Point()
+        self.assertNotEqual(self.point, diff)
+
+    def test_with_overwritten_value(self):
+        diff = Point(self.point, a = 3)
+        self.assertNotEqual(self.point, diff)
+
+    def test_with_additional_axis(self):
+        diff = Point(self.point, b = 3)
+        self.assertNotEqual(self.point, diff)
+
+    def test_with_additional_axis_sorted_last(self):
+        diff = Point(self.point, z = 4)
+        self.assertNotEqual(self.point, diff)
 
 
 class PointIsSameSpaceTests(unittest.TestCase):

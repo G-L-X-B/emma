@@ -54,5 +54,17 @@ class Point:
         except (AttributeError, KeyError):
             super().__setattr__(name, value)
 
+    def __eq__(self, other) -> bool:
+        try:
+            for axis1, axis2 in zip(
+                    sorted(self.__axes.items()),
+                    sorted(other.__axes.items()),
+                    strict=True):
+                if axis1 != axis2:
+                    return False
+        except ValueError:
+            return False
+        return True
+
     def is_same_space(self, other) -> bool:
         return self.axes == other.axes
