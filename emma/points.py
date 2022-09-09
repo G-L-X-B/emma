@@ -4,15 +4,22 @@ from emma.util.checks import check_isidentifier
 class Point:
     """A point in a space of arbitrary dimensions.
 
-    Point(mapping) -> a new `Point` that uses mapping to initialize its
-    axes and values. Axes names must be valid python identifiers.
+    Point(point) -> copies point.
+
+    Point(**mapping) -> a new `Point` that uses mapping to initialize
+    its axes and values. Axes names must be valid python identifiers.
     Note that names 'axes' and 'dimensions' are reserved. Values must
     be `float`-convertible.
 
+    Point(point, **mapping) -> copies point and then creates or
+    overwrites axes given in the mapping.
+
     Axes can be accessed directly as members of a `Point` object."""
 
-    def __init__(self, **axes):
+    def __init__(self, other=None, **axes):
         self.__axes = {}
+        if other is not None:
+            self.__axes.update(other.__axes)
         for axis, value in axes.items():
             check_isidentifier(axis)
             if axis in dir(self) or axis == 'dimensions' or axis == 'axes':

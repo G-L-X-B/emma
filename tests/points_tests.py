@@ -19,8 +19,19 @@ class PointCreationTests(unittest.TestCase):
         with self.assertRaises(ValueError, msg='Given invalid axis value should raise ValueError.'):
             Point(x = 'x')
 
+    def test_copy_creation(self):
+        p1 = Point(x = 1)
+        p2 = Point(p1)
+        p2.x = 4
+        self.assertNotEqual(p1.x, p2.x, msg='Copy creation should create an independent copy.')
 
-class PointTests(unittest.TestCase):
+    def test_creation_with_overwrite(self):
+        p1 = Point(x = 1, y = 1)
+        p2 = Point(p1, y = 2)
+        self.assertEqual(p2.y, 2)
+
+
+class PointAttributesAccessTests(unittest.TestCase):
     def setUp(self) -> None:
         self.point = Point(x = 1, y = 2)
         return super().setUp()
