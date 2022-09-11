@@ -28,6 +28,7 @@ class PointCreationTests(unittest.TestCase):
     def test_creation_with_overwrite(self):
         p1 = Point(x = 1, y = 1)
         p2 = Point(p1, y = 2)
+        self.assertEqual(p1.y, 1)
         self.assertEqual(p2.y, 2)
 
 
@@ -36,19 +37,19 @@ class PointAttributesAccessTests(unittest.TestCase):
         self.point = Point(x = 1, y = 2)
         return super().setUp()
 
-    def test_axes_reassignment(self):
+    def test_axis_reassignment(self):
         self.point.x = 3
         self.assertEqual(self.point.x, 3)
 
     def test_reserved_attributes_access(self):
         self.assertEqual(self.point.dimensions, 2)
-        self.assertEqual(self.point.axes, ['x', 'y'])
+        self.assertEqual(self.point.axes, ('x', 'y'))
 
     def test_reserved_attributes_assignment(self):
         with self.assertRaises(AttributeError, msg='When trying to assign to reserved attributes should raise AttributeError.'):
             self.point.dimensions = 3
         with self.assertRaises(AttributeError, msg='When trying to assign to reserved attributes should raise AttributeError.'):
-            self.point.axes = ['x', 'y', 'z']
+            self.point.axes = ('x', 'y', 'z')
 
 
 class PointEqualityTests(unittest.TestCase):

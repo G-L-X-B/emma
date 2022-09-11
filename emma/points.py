@@ -18,9 +18,10 @@ class Point:
 
     def __init__(self, other=None, **axes):
         self.__axes = {}
+        pairs = list(axes.items())
         if other is not None:
-            self.__axes.update(other.__axes)
-        for axis, value in axes.items():
+            pairs += other.__axes.items()
+        for axis, value in sorted(pairs):
             check_isidentifier(axis)
             if axis in dir(self) or axis == 'dimensions' or axis == 'axes':
                 raise ValueError(f"Can't name an axis '{axis}'.")
@@ -35,7 +36,7 @@ class Point:
         if name == 'dimensions':
             return len(axes)
         elif name == 'axes':
-            return sorted(axes.keys())
+            return tuple(axes.keys())
         elif name in axes.keys():
             return axes[name]
         else:
@@ -57,8 +58,8 @@ class Point:
     def __eq__(self, other) -> bool:
         try:
             for axis1, axis2 in zip(
-                    sorted(self.__axes.items()),
-                    sorted(other.__axes.items()),
+                    self.__axes.items(),
+                    other.__axes.items(),
                     strict=True):
                 if axis1 != axis2:
                     return False
