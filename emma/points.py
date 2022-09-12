@@ -62,10 +62,15 @@ class Point:
                     other.__axes.items(),
                     strict=True):
                 if axis1 != axis2:
-                    return False
-        except ValueError:
+                    raise AxesError()
+        except (ValueError, AxesError):
             return False
         return True
 
     def is_same_space(self, other) -> bool:
         return self.axes == other.axes
+
+
+class AxesError(AttributeError):
+    """Raised when points have different axes."""
+    pass
