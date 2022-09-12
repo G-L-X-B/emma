@@ -88,3 +88,45 @@ class PointIsSameSpaceTests(unittest.TestCase):
     def test_with_different(self):
         diff = Point(self.point, t = 3)
         self.assertFalse(diff.is_same_space(self.point))
+
+
+class PointsAdditionTests(unittest.TestCase):
+    def setUp(self):
+        self.point = Point(x = 1, y = 2)
+
+    def test_correct_input(self):
+        b = self.point + self.point
+        self.assertNotEqual(self.point, b)
+        self.assertEqual(b.x, 2)
+        self.assertEqual(b.y, 4)
+
+    def test_different_axes(self):
+        b = Point(a = 1, b = 2)
+        with self.assertRaises(AxesError, msg='Given points with different axes should raise AxesError.'):
+            c = b + self.point
+
+    def test_additional_axes(self):
+        b = Point(self.point, z = 3)
+        with self.assertRaises(AxesError, msg='Given points with different amount of axes should raise AxesError'):
+            c = b + self.point
+
+
+class PointsSubtractionTests(unittest.TestCase):
+    def setUp(self):
+        self.point = Point(x = 1, y = 2)
+
+    def test_correct_input(self):
+        b = self.point - self.point
+        self.assertNotEqual(self.point, b)
+        self.assertEqual(b.x, 0)
+        self.assertEqual(b.y, 0)
+
+    def test_different_axes(self):
+        b = Point(a = 1, b = 2)
+        with self.assertRaises(AxesError, msg='Given points with different axes should raise AxesError.'):
+            c = b - self.point
+
+    def test_additional_axes(self):
+        b = Point(self.point, z = 3)
+        with self.assertRaises(AxesError, msg='Given points with different amount of axes should raise AxesError'):
+            c = b - self.point

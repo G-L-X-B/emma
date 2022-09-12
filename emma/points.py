@@ -62,13 +62,29 @@ class Point:
                     other.__axes.items(),
                     strict=True):
                 if axis1 != axis2:
-                    raise AxesError()
-        except (ValueError, AxesError):
+                    raise ValueError()
+        except ValueError:
             return False
         return True
 
     def is_same_space(self, other) -> bool:
         return self.axes == other.axes
+
+    def __add__(self, other):
+        sums = {}
+        if not self.is_same_space(other):
+            raise AxesError()
+        for axis in self.__axes.keys():
+            sums[axis] = self.__axes[axis] + other.__axes[axis]
+        return Point(**sums)
+
+    def __sub__(self, other):
+        subs = {}
+        if not self.is_same_space(other):
+            raise AxesError()
+        for axis in self.__axes.keys():
+            subs[axis] = self.__axes[axis] - other.__axes[axis]
+        return Point(**subs)
 
 
 class AxesError(AttributeError):
