@@ -28,8 +28,7 @@ class Point:
             self.__axes[axis] = float(value)
 
     def __repr__(self):
-        axes = self.__axes
-        return f"Point({', '.join('{}={}'.format(*x) for x in axes.items())})"
+        return f"Point({', '.join('{}={}'.format(*x) for x in self.__axes.items())})"
 
     def __getattribute__(self, name: str):
         axes = super().__getattribute__('_Point__axes')
