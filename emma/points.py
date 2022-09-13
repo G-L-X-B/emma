@@ -1,3 +1,5 @@
+from math import sqrt
+
 from emma.util.checks import check_isidentifier
 
 
@@ -54,6 +56,9 @@ class Point:
         except (AttributeError, KeyError):
             super().__setattr__(name, value)
 
+    def __abs__(self):
+        return sqrt(sum((x**2 for x in self.__axes.values())))
+
     def __eq__(self, other) -> bool:
         try:
             for axis1, axis2 in zip(
@@ -84,6 +89,9 @@ class Point:
         for axis in self.__axes.keys():
             subs[axis] = self.__axes[axis] - other.__axes[axis]
         return Point(**subs)
+
+    def distance_to(self, other):
+        return abs(self - other)
 
 
 class AxesError(AttributeError):

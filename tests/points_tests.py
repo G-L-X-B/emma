@@ -52,6 +52,12 @@ class PointAttributesAccessTests(unittest.TestCase):
             self.point.axes = ('x', 'y', 'z')
 
 
+class PointAbsoluteValueTests(unittest.TestCase):
+    def runTest(self):
+        p = Point(x = 3, y = 4)
+        self.assertEqual(abs(p), 5)
+
+
 class PointEqualityTests(unittest.TestCase):
     def setUp(self):
         self.point = Point(y = 1, o = 2, x = 3)
@@ -130,3 +136,17 @@ class PointsSubtractionTests(unittest.TestCase):
         b = Point(self.point, z = 3)
         with self.assertRaises(AxesError, msg='Given points with different amount of axes should raise AxesError'):
             c = b - self.point
+
+
+class PointDistanceToTests(unittest.TestCase):
+    def setUp(self):
+        self.point = Point(x = 2, y = 4)
+
+    def test_correct_input(self):
+        b = Point(self.point, x = 4)
+        self.assertEqual(b.distance_to(self.point), 2)
+
+    def test_axes_erroneous_input(self):
+        b = Point(self.point, z = 3)
+        with self.assertRaises(AxesError, msg='Given points with different axes should raise AxesError.'):
+            self.point.distance_to(b)
