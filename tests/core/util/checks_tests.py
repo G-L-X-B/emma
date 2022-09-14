@@ -1,6 +1,6 @@
 import unittest
 
-from emma.util.checks import *
+from emma.core.util.checks import *
 
 
 class CheckWordTest(unittest.TestCase):

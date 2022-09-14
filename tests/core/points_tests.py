@@ -1,6 +1,6 @@
 import unittest
 
-from emma.points import *
+from emma.core.points import *
 
 
 class PointCreationTests(unittest.TestCase):

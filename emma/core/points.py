@@ -1,6 +1,6 @@
 from math import sqrt
 
-from emma.util.checks import check_isidentifier
+from emma.core.util.checks import check_isidentifier
 
 
 class Point:
