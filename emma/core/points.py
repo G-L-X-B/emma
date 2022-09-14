@@ -93,6 +93,11 @@ class Point:
     def distance_to(self, other):
         return abs(self - other)
 
+    def origin(self):
+        """Returns a point that has all zeroes on all axes."""
+        return Point(**{
+            x: 0 for x in self.__axes.keys()
+        })
 
 class AxesError(AttributeError):
     """Raised when points have different axes."""

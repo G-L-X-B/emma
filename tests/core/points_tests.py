@@ -150,3 +150,11 @@ class PointDistanceToTests(unittest.TestCase):
         b = Point(self.point, z = 3)
         with self.assertRaises(AxesError, msg='Given points with different axes should raise AxesError.'):
             self.point.distance_to(b)
+
+
+class PointOriginTest(unittest.TestCase):
+    def runTest(self):
+        a = Point(x = 1, y = 2, z = 4)
+        b = a.origin()
+        for axis in b.axes:
+            self.assertEqual(b._Point__axes[axis], 0)
